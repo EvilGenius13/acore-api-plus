@@ -4,9 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm:dev-backend\" \"npm:dev-frontend\"",
-    "dev-backend": "node backend/app.js",
-    "dev-frontend": "live-server frontend --port=8080"
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\""
   },
   "keywords": [],
   "author": "",
