@@ -1,12 +1,13 @@
 import express from 'express';
 import cors from 'cors';
+const corsPort = process.env.CORS_PORT
 
 const app = express();
 const port = 3001;
 
 // Enable CORS for all routes
 app.use(cors({
-  origin: 'http://localhost:5173' // Allow frontend server to make requests
+  origin: `http://localhost:${corsPort}` // Allow frontend server to make requests
 }));
 
 // Sample API route

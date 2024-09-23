@@ -1,20 +1,17 @@
-# Frontend Dockerfile (frontend/Dockerfile)
-
-# Use a Node.js base image or use a static file server like nginx
-FROM node:16-alpine
-
-# Set the working directory
+# Stage 1: Build the app
+FROM node:21-alpine3.20 AS builder
 WORKDIR /app
-
-# Copy package.json and install dependencies (if using a bundler like Vite)
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install
-
-# Copy the rest of the frontend code
 COPY . .
+RUN npm run build
 
-# Serve frontend (example: using live-server or Vite for dev, or copy to nginx for production)
-EXPOSE 8080
+# Stage 2: Serve with nginx
+FROM nginx:1.25.2-alpine AS runner
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Serve the frontend files (replace live-server with Vite or another bundler if needed)
-CMD ["npx", "live-server", ".", "--port=8080"]
+# Expose port 80
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

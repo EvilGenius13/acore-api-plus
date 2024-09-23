@@ -1,23 +1,20 @@
-version: '3'
 services:
   backend:
     build: ./backend
     ports:
       - "3001:3001"
-    volumes:
-      - ./backend:/app
     networks:
-      - simple-site
+      - simple-site-network
+    environment:
+      - CORS_PORT=3050
 
   frontend:
     build: ./frontend
     ports:
-      - "8080:8080"
-    volumes:
-      - ./frontend:/app
+      - "3050:80"
     networks:
-      - simple-site
+      - simple-site-network
 
 networks:
-  simple-site:
+  simple-site-network:
     driver: bridge
