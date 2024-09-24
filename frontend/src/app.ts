@@ -1,6 +1,16 @@
 import { LitElement, html } from 'lit';
 import { property } from 'lit/decorators.js';
-const apiUrl = process.env.API_URL || '/api';
+
+interface ImportMetaEnv {
+  VITE_API_URL: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
+// TODO: I don't like this
+const apiUrl = (import.meta as unknown as ImportMeta).env.VITE_API_URL || '/api';
 
 interface Player {
   name: string;

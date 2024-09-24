@@ -14,7 +14,9 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.21.0"
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
