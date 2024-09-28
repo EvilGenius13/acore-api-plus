@@ -2,7 +2,8 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
-// TODO: Need to find out max connections we should set for the pools
+// Note: The DB container can handle a maximum of 155 connections at a time
+// 5 connections in the pool seems reasonable for each DB
 
 const charactersPool = mysql.createPool({
   host: process.env.DB_HOST,

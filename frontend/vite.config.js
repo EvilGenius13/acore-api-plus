@@ -1,13 +1,14 @@
 import { defineConfig } from 'vite';
-import EnvironmentPlugin from 'vite-plugin-environment';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  plugins: [
-    EnvironmentPlugin({
-      API_URL: 'http://localhost:3001/api', // Default value or use from .env
-    }),
-  ],
-  build: {
-    outDir: 'dist',
+  plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
   },
 });

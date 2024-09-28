@@ -6,11 +6,11 @@ services:
     networks:
       - simple-site-network
     environment:
-      - CORS_PORT=3050
-      - DB_HOST=localhost
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASSWORD=password
+      - CORS_PORT=${CORS_PORT:-3050}
+      - DB_HOST=${DB_HOST:-localhost}
+      - DB_PORT=${DB_PORT:-3306}
+      - DB_USER=${DB_USER:-user}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
 
   frontend:
     build: ./frontend
@@ -19,7 +19,8 @@ services:
     networks:
       - simple-site-network
     environment:
-      - VITE_API_URL=/api
+      - VITE_API_URL=${VITE_API_URL:-/api}
+      - VITE_REALM=${VITE_REALM:-default-realm}
 
 networks:
   simple-site-network:
