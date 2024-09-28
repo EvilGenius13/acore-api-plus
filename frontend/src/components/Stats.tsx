@@ -112,8 +112,8 @@ const Stats = () => {
         <h3 style={realmTitleStyle}>{REALM}</h3>
         <h5>Faction Balance</h5>
         <div style={factionLogoContainerStyle}>
-          <img src="/assets/alliance.jpg" alt="Alliance" style={logoStyle} />
-          <img src="/assets/horde.jpg" alt="Horde" style={logoStyle} />
+          <img src="/assets/factions/alliance.jpg" alt="Alliance" style={logoStyle} />
+          <img src="/assets/factions/horde.jpg" alt="Horde" style={logoStyle} />
         </div>
 
         {/* Faction Balance Bar */}
@@ -187,6 +187,7 @@ const factionLogoContainerStyle = {
 const logoStyle = {
   width: '50px',
   height: '50px',
+  borderRadius: '50px',
 };
 
 const factionBarStyle = {

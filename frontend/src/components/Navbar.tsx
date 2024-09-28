@@ -45,6 +45,7 @@ const logoContainerStyle: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
   marginLeft: '20px',
+  marginTop: '10px',
 };
 
 // Logo image styling
@@ -63,6 +64,8 @@ const navStyle: CSSProperties = {
   backgroundImage: 'linear-gradient(to right, #141414, #333333)', // Adds some depth with gradient
   borderRadius: '0 0 10px 10px', // Slight rounded corners at the bottom
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)', // Add a shadow to give depth
+  marginBottom: '-30px', // Slight overlap with the content below
+  zIndex: 1000,
 };
 
 // Center navigation links style

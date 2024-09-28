@@ -2,17 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Stats from './components/Stats'; 
+import Players from './components/Players';
 import '../public/stylesheets/style.css';
 
 // Example Components for each route
 const Home = () => <h2>Home Page</h2>;
 const About = () => <h2>About Page</h2>;
 const Armory = () => <h2>Armory Page</h2>;
-const Players = () => <h2>Players Page</h2>;
 
 function App() {
   return (
-    <div style={{ backgroundColor: 'black' }}>
+    <div style={{ backgroundColor: 'black', fontFamily: 'fantasy' }}>
     <Router>
       <div style={layoutStyle}>
         <Navbar />
@@ -74,7 +74,7 @@ const videoStyle: CSSProperties = {
 const mainContentStyle: CSSProperties = {
   width: '50%', // Narrower content box
   marginTop: '-20px', // Space below the video
-  backgroundColor: '#333', // Dark background for contrast
+  backgroundColor: 'black', // Dark background for contrast
   color: 'white',
   padding: '50px',
   borderRadius: '10px',
