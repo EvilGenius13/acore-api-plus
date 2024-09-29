@@ -34,7 +34,9 @@ const Navbar = () => {
 
       {/* Right: Login Button */}
       <div style={loginButtonContainerStyle}>
-        <button style={loginButtonStyle}>Login</button>
+        <Link to="/login" style={{ textDecoration: 'none' }}>
+          <button style={loginButtonStyle}>Login</button>
+        </Link>
       </div>
     </nav>
   );
@@ -95,11 +97,12 @@ const linkStyle: CSSProperties = {
   fontFamily: 'Georgia, serif', // Adds a medieval feel to the font
 };
 
+// Login button container (right side of the navbar)
 const loginButtonContainerStyle: CSSProperties = {
   marginRight: '20px',
 };
 
-// Login button styling (right side of the navbar)
+// Login button styling
 const loginButtonStyle: CSSProperties = {
   backgroundColor: '#ffe563', // Gold button color
   color: '#141414', // Dark text for contrast

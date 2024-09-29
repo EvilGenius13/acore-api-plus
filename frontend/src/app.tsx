@@ -4,6 +4,8 @@ import Navbar from './components/Navbar';
 import Stats from './components/Stats'; 
 import Players from './components/Players';
 import Register from './components/Register';
+import Login from './components/Login';
+import ProtectedPage from './components/ProtectedPage';
 import '../public/stylesheets/style.css';
 
 // Example Components for each route
@@ -33,6 +35,8 @@ function App() {
             <Route path="/armory" element={<Armory />} />
             <Route path="/players" element={<Players />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/protected" element={<ProtectedPage />} />
           </Routes>
         </div>
       </div>
