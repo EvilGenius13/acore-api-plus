@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Stats from './components/Stats'; 
 import Players from './components/Players';
+import Register from './components/Register';
 import '../public/stylesheets/style.css';
 
 // Example Components for each route
@@ -31,6 +32,7 @@ function App() {
             <Route path="/stats" element={<Stats />} />
             <Route path="/armory" element={<Armory />} />
             <Route path="/players" element={<Players />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </div>
       </div>

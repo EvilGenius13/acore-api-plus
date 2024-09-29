@@ -101,7 +101,7 @@ const Stats = () => {
       {/* Header with Statistics and Current Time */}
       <div style={headerStyle}>
         <h1 style={headerTitleStyle}>Statistics</h1>
-        <h2 style={headerTimeStyle}>{currentTime} EST</h2>
+        <h2 style={headerTimeStyle}>Server Time {currentTime} EST</h2>
       </div>
 
       {/* Line Break */}

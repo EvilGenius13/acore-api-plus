@@ -1,6 +1,6 @@
 import  { Request, Response } from 'express';
 import { Player } from '../models/player';
-import pool from '../utils/db';
+import {charactersPool as pool} from '../utils/db';
 import { RowDataPacket } from 'mysql2';
 
 
@@ -41,7 +41,7 @@ export const getPlayersFactionCount = async (req: Request, res: Response): Promi
 
 export const getPlayersOnline = async (req: Request, res: Response): Promise<void> => {
   try {
-    const [rows] = await pool.query('SELECT guid, name, race, class, level FROM characters WHERE online = 1 ORDER BY level DESC');
+    const [rows] = await pool.query('SELECT guid, name, race, class, gender, level FROM characters WHERE online = 1 ORDER BY level DESC');
     res.json(rows);
   } catch (error) {
     console.error('Error fetching players:', error);
@@ -67,7 +67,7 @@ export const getPlayerById = async (req: Request, res: Response): Promise<void> 
 
   try {
     const [rows] = await pool.query<RowDataPacket[] & Player[] >(
-      'SELECT guid as id, name, race, class, level FROM characters WHERE guid = ?', 
+      'SELECT guid as id, name, race, class, gender, level FROM characters WHERE guid = ?', 
       [id]
     );
 
@@ -91,7 +91,7 @@ export const getPlayerByName = async (req: Request, res: Response): Promise<void
 
   try {
     const [rows] = await pool.query<RowDataPacket[] & Player[] >(
-      'SELECT guid as id, name, race, class, level FROM characters WHERE name = ?', 
+      'SELECT guid as id, name, race, class, gender, level FROM characters WHERE name = ?', 
       [name]
     );
 

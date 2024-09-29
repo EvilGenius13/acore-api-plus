@@ -89,6 +89,7 @@ const Players = () => {
     axios
       .get(`${API_URL}/players`)
       .then((response) => {
+        console.log(response.data[0])
         setPlayers(response.data);
       })
       .catch((error) => {
@@ -113,6 +114,7 @@ const Players = () => {
             const playerClass = classInfo[player.class] || { name: 'Unknown', color: '#FFFFFF' };
             const playerFaction = raceFactionMap[player.race] || 'Unknown';
             const playerRace = raceInfo[player.race] || 'Unknown';
+            console.log(player.gender);
             const raceGenderImage = getRaceGenderImage(player.race, player.gender);
             const classImage = getClassImage(player.class);
 
