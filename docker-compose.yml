@@ -11,6 +11,7 @@ services:
       - DB_PORT=${DB_PORT:-3306}
       - DB_USER=${DB_USER:-user}
       - DB_PASSWORD=${DB_PASSWORD:-password}
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_key}
 
   frontend:
     build: ./frontend
