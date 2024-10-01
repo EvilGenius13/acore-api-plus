@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3001/api';
 
-const ProtectedPage = () => {
-  const [message, setMessage] = useState('');
+const InventoryPage = () => {
+  const { guid } = useParams<{ guid: string }>();
+  const [inventory, setInventory] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    const fetchProtectedData = async () => {
+    const fetchInventory = async () => {
       try {
         const token = localStorage.getItem('token');
 
@@ -17,13 +19,13 @@ const ProtectedPage = () => {
           return;
         }
 
-        const response = await axios.get(`${API_URL}/protected/protected`, {
+        const response = await axios.get(`${API_URL}/inventory/${guid}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        setMessage(response.data.message);
+        setInventory(response.data.inventory);
       } catch (error: any) {
         if (error.response && error.response.data && error.response.data.error) {
           setErrorMessage(error.response.data.error);
@@ -33,42 +35,35 @@ const ProtectedPage = () => {
       }
     };
 
-    fetchProtectedData();
-  }, []);
+    fetchInventory();
+  }, [guid]);
 
   return (
     <div style={containerStyle}>
-      <h1 style={headerStyle}>Protected Page</h1>
+      <h1 style={headerStyle}>Character Inventory</h1>
       {errorMessage && <p style={errorStyle}>{errorMessage}</p>}
-      {message && <p style={messageStyle}>{message}</p>}
+      <ul>
+        {inventory.map((item: any) => (
+          <li key={item.item_guid}>
+            Item ID: {item.item}, Slot: {item.slot}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
 // Styles
 const containerStyle = {
-  backgroundColor: '#222',
-  color: 'white',
-  padding: '40px',
-  borderRadius: '10px',
-  width: '400px',
-  margin: '0 auto',
+  // ... your styles
 };
 
 const headerStyle = {
-  textAlign: 'center' as 'center',
-  marginBottom: '20px',
-  color: '#ffe563',
+  // ... your styles
 };
 
 const errorStyle = {
-  color: 'red',
-  textAlign: 'center' as 'center',
+  // ... your styles
 };
 
-const messageStyle = {
-  color: 'green',
-  textAlign: 'center' as 'center',
-};
-
-export default ProtectedPage;
+export default InventoryPage;

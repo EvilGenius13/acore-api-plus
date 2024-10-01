@@ -5,7 +5,9 @@ import Stats from './components/Stats';
 import Players from './components/Players';
 import Register from './components/Register';
 import Login from './components/Login';
-import ProtectedPage from './components/ProtectedPage';
+import Profile from './components/Profile';
+import InventoryPage from './components/InventoryPage';
+import { AuthProvider } from './AuthContext';
 import '../public/stylesheets/style.css';
 
 // Example Components for each route
@@ -16,32 +18,35 @@ const Armory = () => <h2>Armory Page</h2>;
 function App() {
   return (
     <div style={{ backgroundColor: 'black', fontFamily: 'fantasy' }}>
-    <Router>
-      <div style={layoutStyle}>
-        <Navbar />
-        {/* Video Container */}
-        <div style={videoContainerStyle}>
-          <video autoPlay loop muted style={videoStyle}>
-            <source src="/assets/mulgore.webm" type="video/webm" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        {/* Main Content Box */}
-        <div style={mainContentStyle}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/armory" element={<Armory />} />
-            <Route path="/players" element={<Players />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/protected" element={<ProtectedPage />} />
-          </Routes>
-        </div>
-      </div>
-    </Router>
-  </div>
+      <AuthProvider> {/* Wrap your app with AuthProvider */}
+        <Router>
+          <div style={layoutStyle}>
+            <Navbar />
+            {/* Video Container */}
+            <div style={videoContainerStyle}>
+              <video autoPlay loop muted style={videoStyle}>
+                <source src="/assets/mulgore.webm" type="video/webm" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            {/* Main Content Box */}
+            <div style={mainContentStyle}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/stats" element={<Stats />} />
+                <Route path="/armory" element={<Armory />} />
+                <Route path="/players" element={<Players />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/inventory/:guid" element={<InventoryPage />} />
+              </Routes>
+            </div>
+          </div>
+        </Router>
+      </AuthProvider>
+    </div>
   );
 }
 

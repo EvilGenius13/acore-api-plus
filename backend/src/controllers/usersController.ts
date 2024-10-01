@@ -6,7 +6,7 @@ import { authPool as pool } from '../utils/db';
 import { RowDataPacket } from 'mysql2';
 import jwt from 'jsonwebtoken';
 
-export const registerUser = async (req: Request, res: Response): Promise<void> => {
+export const registerUserUnsafe = async (req: Request, res: Response): Promise<void> => {
   const { username, password, verifyPassword, email } = req.body;
 
   // Validate input
@@ -95,7 +95,7 @@ export const loginUnsafe = async (req: Request, res: Response): Promise<void> =>
 
     // Retrieve user from the database
     const [users] = await connection.query<RowDataPacket[]>(
-      'SELECT salt, verifier FROM account WHERE username = ?',
+      'SELECT id, salt, verifier FROM account WHERE username = ?',
       [username]
     );
 
@@ -104,7 +104,7 @@ export const loginUnsafe = async (req: Request, res: Response): Promise<void> =>
       return;
     }
 
-    const { salt, verifier } = users[0];
+    const { salt, verifier, id: userId } = users[0];
 
     // Generate verifier from provided password and retrieved salt
     const { verifierBuffer: computedVerifier } = await hashPasswordWithSalt(
@@ -116,7 +116,7 @@ export const loginUnsafe = async (req: Request, res: Response): Promise<void> =>
     // Compare the computed verifier with the stored verifier
     if (computedVerifier.equals(verifier)) {
       // Authentication successful, generate JWT token
-      const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: '1h' });
+      const token = jwt.sign({ userId, username }, JWT_SECRET, { expiresIn: '1h' });
 
       res.status(200).json({ message: 'Login successful', token });
     } else {

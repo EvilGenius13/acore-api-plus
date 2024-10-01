@@ -30,8 +30,8 @@ const Login = () => {
       // Store the token (using localStorage for simplicity)
       localStorage.setItem('token', token);
 
-      // Redirect to the protected page or update the UI accordingly
-      window.location.href = '/protected';
+      // Redirect to profile page or update the UI accordingly
+      window.location.href = '/profile';
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
         setErrorMessage(error.response.data.error);
