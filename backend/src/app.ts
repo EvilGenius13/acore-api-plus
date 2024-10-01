@@ -10,7 +10,7 @@ const corsPort = process.env.CORS_PORT
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key_here'; // Make sure to set this in your .env file
 
 const app = express();
-const port = 3001;
+const port = 3005;
 console.log(`CORS_PORT: ${corsPort}`)
 // Enable CORS for all routes
 app.use(

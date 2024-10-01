@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // TODO: I don't like this any type, but I'm not sure how to fix it
-const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3005/api';
+
 const REALM = (import.meta as any).env.VITE_REALM || 'Realm';
 
 // Utility to check if cached data is valid (not older than 10 minutes)
