@@ -4,6 +4,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
+ARG VITE_API_URL
+ARG VITE_REALM
+ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_REALM=${VITE_REALM}
 RUN npm run build
 
 # Stage 2: Serve with nginx

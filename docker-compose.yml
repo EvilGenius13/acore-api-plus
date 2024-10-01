@@ -2,7 +2,7 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3001:3001"
+      - "3005:3005"
     networks:
       - simple-site-network
     environment:
@@ -14,14 +14,15 @@ services:
       - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_key}
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/api}
+        VITE_REALM: ${VITE_REALM:-default-realm}
     ports:
       - "3050:80"
     networks:
       - simple-site-network
-    environment:
-      - VITE_API_URL=${VITE_API_URL:-/api}
-      - VITE_REALM=${VITE_REALM:-default-realm}
 
 networks:
   simple-site-network:

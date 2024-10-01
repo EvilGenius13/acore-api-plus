@@ -19,7 +19,7 @@ COPY . .
 RUN npm run build
 
 # Expose the backend port
-EXPOSE 3001
+EXPOSE 3005
 
 # Start the backend server
 CMD ["node", "dist/app.js"]

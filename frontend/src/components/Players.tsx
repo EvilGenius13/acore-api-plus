@@ -7,7 +7,7 @@ import { Player } from '../types/types';
 import { containerStyle, titleStyle, tableStyle, thStyle} from '../styles/styles';
 import '../styles/main.css';
 
-const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:3005/api';
 
 const Players = () => {
   const [players, setPlayers] = useState<Player[]>([]);
