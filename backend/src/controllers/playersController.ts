@@ -7,8 +7,23 @@ import { RowDataPacket } from 'mysql2';
 // This should be paginated
 export const getPlayers = async (req: Request, res: Response): Promise<void> => {
   try {
-    const [rows] = await pool.query('SELECT guid, name, race, class, gender, level FROM characters ORDER BY level DESC');
-    res.json(rows);
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 20;
+
+    const offset = (page - 1) * limit;
+    
+    const [countRows] = await pool.query('SELECT COUNT(*) AS total FROM characters');
+    const total = (countRows as RowDataPacket[])[0].total;
+    
+    const [rows] = await pool.query('SELECT guid, name, race, class, gender, level FROM characters ORDER BY level DESC LIMIT ? OFFSET ?',
+      [limit, offset]
+    );
+    res.json({
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+      players: rows,
+    });
   } catch (error) {
     console.error('Error fetching players:', error);
     res.status(500).json({ error: 'Error fetching players' });

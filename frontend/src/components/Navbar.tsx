@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CSSProperties } from 'react';
+import { AuthContext } from '../AuthContext'; // Import AuthContext
 
 const Navbar = () => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    window.location.href = '/login';
+  };
+
   return (
     <nav style={navStyle as CSSProperties}>
       {/* Left: World of Warcraft Logo */}
@@ -28,15 +37,21 @@ const Navbar = () => {
           <Link to="/players" style={linkStyle as CSSProperties}>Players</Link>
         </li>
         <li style={liStyle as CSSProperties}>
-          <Link to="/register" style={linkStyle as CSSProperties}>Register</Link>
+          <Link to={isLoggedIn ? '/profile' : '/register'} style={linkStyle as CSSProperties}>
+            {isLoggedIn ? 'Profile' : 'Register'}
+          </Link>
         </li>
       </ul>
 
-      {/* Right: Login Button */}
+      {/* Right: Login/Logout Button */}
       <div style={loginButtonContainerStyle}>
-        <Link to="/login" style={{ textDecoration: 'none' }}>
-          <button style={loginButtonStyle}>Login</button>
-        </Link>
+        {!isLoggedIn ? (
+          <Link to="/login" style={{ textDecoration: 'none' }}>
+            <button style={loginButtonStyle}>Login</button>
+          </Link>
+        ) : (
+          <button style={loginButtonStyle} onClick={handleLogout}>Logout</button>
+        )}
       </div>
     </nav>
   );
@@ -74,7 +89,7 @@ const navStyle: CSSProperties = {
 const ulStyle: CSSProperties = {
   display: 'flex',
   justifyContent: 'center',
-  gap: '2rem', // Space between links
+  gap: '0.5rem', // Space between links
   listStyleType: 'none',
   margin: '0',
   padding: '0',

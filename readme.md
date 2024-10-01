@@ -1,4 +1,11 @@
-# Acore Simple Site (Do I call it Acore-Api-Plus?)
-A multifunction site for use with Azeroth Core.
+# Acore API Plus
+A multifunction site for use with Azeroth Core built on top of a custom API.
 
-TODO: Need pagination for larger queries.
+## Description
+This project is a multifunction site for use with Azeroth Core. It is built on top of a custom API for the Azeroth Core database. The front end is optional should you want to build your own and connect to the API. The front end makes it easier to boot up a site quickly and start using the API.
+
+## API
+
+## Site
+
+## Documentation
