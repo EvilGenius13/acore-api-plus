@@ -6,16 +6,16 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const corsPort = process.env.CORS_PORT
+const corsUrl = process.env.CORS_URL
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key_here'; // Make sure to set this in your .env file
 
 const app = express();
 const port = 3005;
-console.log(`CORS_PORT: ${corsPort}`)
+console.log(`CORS_URL: ${corsUrl}`)
 // Enable CORS for all routes
 app.use(
   cors({
-    origin: `http://localhost:${corsPort}` // Allow frontend server to make requests (corsPort is set in docker-compose.yml)
+    origin: `${corsUrl}` // Allow frontend server to make requests (corsUrl is set in docker-compose.yml)
 }));
 
 // Parse JSON bodies
