@@ -5,23 +5,25 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
-const corsUrl = process.env.CORS_URL
-const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key_here'; // Make sure to set this in your .env file
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',');
 
 const app = express();
 const port = 3005;
-console.log(`CORS_URL: ${corsUrl}`)
-// Enable CORS for all routes
+
 app.use(
   cors({
-    origin: `${corsUrl}` // Allow frontend server to make requests (corsUrl is set in docker-compose.yml)
-}));
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Allow requests with no origin
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error('Not allowed by CORS'), false);
+      }
+    },
+  })
+);
 
-// Parse JSON bodies
 app.use(express.json());
-
-// Routes
 app.use('/api', routes);
 
 app.listen(port, () => {
