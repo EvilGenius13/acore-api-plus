@@ -11,20 +11,21 @@ console.log(`Allowed origins are: ${allowedOrigins}`);
 const app = express();
 const port = 3005;
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      console.log(`Received request from origin: ${origin}`);
-      if (!origin) return callback(null, true); // Allow requests with no origin
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      } else {
-        console.log(`Origin ${origin} not allowed by CORS`);
-        return callback(new Error('Not allowed by CORS'), false);
-      }
-    },
-  })
-);
+app.use(cors()); // Allow requests from any origin
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       console.log(`Received request from origin: ${origin}`);
+//       if (!origin) return callback(null, true); // Allow requests with no origin
+//       if (allowedOrigins.includes(origin)) {
+//         return callback(null, true);
+//       } else {
+//         console.log(`Origin ${origin} not allowed by CORS`);
+//         return callback(new Error('Not allowed by CORS'), false);
+//       }
+//     },
+//   })
+// );
 
 app.use(express.json());
 app.use('/api', routes);
