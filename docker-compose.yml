@@ -8,7 +8,7 @@ services:
     networks:
       - simple-site-network
     environment:
-      # - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3050} # Or cheat with '*' to allow all origins
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-http://localhost:3050} # Or cheat with '*' to allow all origins
       - DB_HOST=${DB_HOST:-localhost}
       - DB_PORT=${DB_PORT:-3306}
       - DB_USER=${DB_USER:-user}
@@ -19,7 +19,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_API_URL: ${VITE_API_URL:-http://localhost:3005/api}
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:3005/api} # This would be your domain if using one like api.yourdomain.com
         VITE_REALM: ${VITE_REALM:-default-realm}
     ports:
       - "3050:3000"

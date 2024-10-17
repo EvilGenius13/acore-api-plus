@@ -5,18 +5,23 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',');
+// Normalize allowed origins by trimming and removing trailing slashes
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(origin => origin.trim().replace(/\/$/, ''));
+
 console.log(`Allowed origins are: ${allowedOrigins}`);
 
 const app = express();
 const port = 3005;
 
-// app.use(cors()); // Allow requests from any origin
+// CORS configuration
 app.use(
   cors({
     origin: function (origin, callback) {
+      origin = origin ? origin.trim().replace(/\/$/, '') : origin;
       console.log(`Received request from origin: ${origin}`);
-      if (!origin) return callback(null, true); // Allow requests with no origin
+      if (!origin) return callback(null, true); // Allow requests with no origin (e.g., mobile apps, curl)
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       } else {
@@ -30,6 +35,15 @@ app.use(
 app.use(express.json());
 app.use('/api', routes);
 
-app.listen(port, () => {
-  console.log(`🛡 API running on http://localhost:${port}`);
+// Error handling middleware
+app.use((err:any, req:any, res:any, next:any) => {
+  if (err.message === 'Not allowed by CORS') {
+    res.status(403).json({ message: 'CORS Error: Not allowed by CORS' });
+  } else {
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+app.listen(port, '0.0.0.0', () => {
+  console.log(`🛡 API running on http://0.0.0.0:${port}`);
 });

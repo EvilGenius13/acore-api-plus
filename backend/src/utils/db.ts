@@ -24,3 +24,13 @@ export const authPool = mysql.createPool({
   connectionLimit: 5,
   queueLimit: 0,
 });
+
+export const worldPool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: 'acore_world',
+  waitForConnections: true,
+  connectionLimit: 5,
+  queueLimit: 0,
+});
